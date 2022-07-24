@@ -33,6 +33,8 @@ import loadable from '@loadable/component';
 import InviteChannelModal from '@/components/InviteChannelModal';
 import Modal from '@/components/Modal';
 import { Button, Input, Label } from '@/pages/SignUp/styles';
+import ChannelList from '@/components/ChannelList';
+import DMList from '@/components/DMList';
 
 const Channel = loadable(() => import('@/pages/Channel'));
 const DirectMessage = loadable(() => import('@/pages/DirectMessage'));
@@ -54,10 +56,10 @@ const Workspace: FC = () => {
     userData ? `http://localhost:3095/api/workspaces/${workspace}/channels` : null,
     fetcher,
   );
-  // const { data: memberData } = useSWR<IUser[]>(
-  //   userData ? `http://localhost:3095/api/workspaces/${workspace}/members` : null,
-  //   fetcher,
-  // );
+  const { data: memberData } = useSWR<IUser[]>(
+    userData ? `http://localhost:3095/api/workspaces/${workspace}/members` : null,
+    fetcher,
+  );
   // const [socket, disconnect] = useSocket(workspace);
 
   // useEffect(() => {
@@ -193,9 +195,8 @@ const Workspace: FC = () => {
                 <button onClick={onLogout}>로그아웃</button>
               </WorkspaceModal>
             </Menu>
-            {channelData?.map((v) => (
-              <div key={v.name}>{v?.name}</div>
-            ))}
+            <ChannelList />
+            <DMList />
           </MenuScroll>
         </Channels>
         <Chats>

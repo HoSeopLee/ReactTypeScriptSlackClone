@@ -27,13 +27,11 @@ const LogIn = () => {
           mutate(response.data, false);
         })
         .catch((error) => {
-          console.log('asdfasdf ???');
           setLogInError(error.response?.data?.statusCode === 401);
         });
     },
     [email, mutate, password],
   );
-
   if (data === undefined) {
     return <div>로딩중...</div>;
   }
